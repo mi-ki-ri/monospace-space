@@ -5,13 +5,14 @@
   >
     <div class="flex w-1/2 min-h-screen">
       <textarea
-        class="w-full m-2 p-2 font-mono	"
+        class="w-full m-2 p-2 font-mono"
         v-model="textareaVal"
         id="t-area"
+        @keydown.tab.prevent=""
       ></textarea>
     </div>
     <div class="flex w-1/2 min-h-screen" id="p-area" @click="dl">
-      <pre class="w-full m-2 p-2 font-mono	">{{ textareaVal }}</pre>
+      <pre class="w-full m-2 p-2 font-mono">{{ textareaVal }}</pre>
     </div>
   </div>
 </template>
