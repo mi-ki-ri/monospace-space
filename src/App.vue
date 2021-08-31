@@ -1,28 +1,56 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div
+    id="app"
+    class="lg:container mx-auto min-h-screen flex justify-between items-stretch"
+  >
+    <div class="flex w-1/2 min-h-screen">
+      <textarea
+        class="w-full m-2 p-2 font-mono	"
+        v-model="textareaVal"
+        id="t-area"
+      ></textarea>
+    </div>
+    <div class="flex w-1/2 min-h-screen" id="p-area" @click="dl">
+      <pre class="w-full m-2 p-2 font-mono	">{{ textareaVal }}</pre>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import html2canvas from "html2canvas";
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+  name: "App",
+  data() {
+    return {
+      textareaVal: "",
+    };
+  },
+  methods: {
+    dl() {
+      const tArea = document.getElementById("p-area");
+
+      html2canvas(tArea)
+        .then((newCanvas) => {
+          newCanvas.classList.add("w-full");
+          newCanvas.classList.add("p-2");
+          newCanvas.classList.add("m-2");
+          let link = document.createElement("a");
+
+          link.href = newCanvas.toDataURL("image/png");
+          link.download = `monospace${new Date().toLocaleString()}.png`;
+          link.click();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+  },
+};
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+div {
+  border: 1px solid #ccc;
 }
 </style>
